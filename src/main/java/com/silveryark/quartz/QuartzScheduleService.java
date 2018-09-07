@@ -43,7 +43,8 @@ public class QuartzScheduleService implements ScheduleService {
     private String groupVersion;
 
     @Autowired
-    QuartzScheduleService(Scheduler scheduler, Dates dates, Randoms randoms, Services services) throws SchedulerException {
+    QuartzScheduleService(Scheduler scheduler, Dates dates, Randoms randoms, Services services)
+            throws SchedulerException {
         this.scheduler = scheduler;
         this.dates = dates;
         this.randoms = randoms;

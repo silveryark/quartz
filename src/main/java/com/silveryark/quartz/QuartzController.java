@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RestController("/quartz")
 public class QuartzController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(QuartzController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuartzController.class);
 
     private final ScheduleService scheduleService;
 
@@ -27,7 +27,8 @@ public class QuartzController {
     public Mono<QuartzResponse> createJob(@RequestBody QuartzRequest request) {
         QuartzRequest.QuartzPayload payload = request.getPayload();
         try {
-            String jobKey = scheduleService.scheduleJob(payload.getData(), payload.getDelayInSeconds(), payload.getService());
+            String jobKey = scheduleService.scheduleJob(payload.getData(), payload.getDelayInSeconds(),
+                    payload.getService());
             return Mono.just(new QuartzResponse(request.getRequestId(), RPCResponse.STATUS.OK, jobKey, null));
         } catch (Exception e) {
             LOGGER.error("error when create quartz job", e);
